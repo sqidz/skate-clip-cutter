@@ -1,30 +1,16 @@
-﻿# Skate Clip Cutter 0.1.0
+# Skate Clip Cutter
 
-Local Windows clip cutter: raw video(s) in -> YOLO person-in-frame -> folder of ordinary clip files out.
+Cuts raw skate footage into separate clips when you're in frame. Leave the camera running, pick the files, name the session.
 
-**Product name:** Skate Clip Cutter  
-**Tip jar:** https://buymeacoffee.com/sqidz
+[Download the Windows zip](https://github.com/sqidz/skate-clip-cutter/releases/latest). Unzip it and double-click `Skate Clip Cutter.bat`. Python is already in there. If Windows blocks the folder, right-click it, open Properties, and choose Unblock.
 
-## V1 product lock (still true for 0.1)
+Use a tripod. A moving camera cuts in the wrong places.
 
-- **Tripod / rock-steady only.** Handheld continuous roll is out of claims.
-- **No Split / review UI**, no phone app, no DRM, no watch-folder, **no silent auto-updater**.
-- Detection: **A.2 YOLO person-in-frame** (`person_clipper.py`). Motion-only (A.1) is dead.
+[Buy me a coffee](https://buymeacoffee.com/sqidz) if it saves you time in the editor.
 
-## How people download it
+Check for updates in the app opens this Releases page. It does not install the update for you.
 
-GitHub Releases zip. Unzip, double-click **Skate Clip Cutter.bat**. Check for updates opens this repo's Releases page and compares tags. It does not auto-patch.
-
-Build that zip on a Windows machine:
-
-```powershell
-cd path\to\skate-clip-cutter
-.\build_portable.ps1
-```
-
-Output: `dist\SkateClipCutter-0.1.0-windows-x64.zip`
-
-## Dev launch (this repo)
+To run from this repo: Python 3.10+, FFmpeg on PATH, then
 
 ```powershell
 python -m venv .venv
@@ -32,26 +18,4 @@ python -m venv .venv
 python session_ui.py
 ```
 
-The UI is stdlib tkinter. The worker needs ultralytics/torch (bundled Python in the zip, or `.venv` when you run from source). FFmpeg: bundled `vendor\ffmpeg` in the zip, or Gyan.FFmpeg on PATH.
-
-Headless:
-
-```powershell
-python session_ui.py --inputs "path\to\a.mp4" --landing "$env:USERPROFILE\Videos" --session-name "Rathmines PM"
-```
-
-A.2 CLI:
-
-```powershell
-.\run_a2.ps1 --input "path\to\raw.mp4" --out "path\to\out_folder"
-```
-
-Defaults stay **1.5 fps**, person keep-windows, pre-roll 3.0 / post-roll 1.25. Do not retune for a ship bite.
-
-## Empty / no activity
-
-If nothing passes person keep-windows, the tool writes `NO_ACTIVITY.txt` (session UI: `{stem}_NO_ACTIVITY.txt`) and exits 0 for that file.
-
-## License
-
-AGPL-3.0. The worker uses Ultralytics YOLO. The Releases zip also includes FFmpeg and YOLO weights. See `NOTICE.txt`.
+AGPL-3.0. The zip also includes Python, PyTorch, Ultralytics, OpenCV, and FFmpeg. See `NOTICE.txt`.

@@ -46,7 +46,6 @@ $copyFiles = @(
   "clipper.py",
   "paths.py",
   "ship.py",
-  "USER_README.md",
   "README.md",
   "LICENSE",
   "NOTICE.txt",

@@ -1,15 +1,3 @@
-Skate Clip Cutter 0.1.0
+Skate Clip Cutter is AGPL-3.0. See LICENSE.
 
-This program is free software under the GNU Affero General Public License v3.0.
-See LICENSE.
-
-Third-party software in the Windows zip:
-
-- CPython (Python Software Foundation). https://www.python.org/
-- Ultralytics YOLO (AGPL-3.0). https://github.com/ultralytics/ultralytics
-- PyTorch (BSD-style). https://github.com/pytorch/pytorch
-- OpenCV. https://opencv.org/
-- FFmpeg (GPL in the Gyan full build). https://ffmpeg.org/  Source: https://github.com/FFmpeg/FFmpeg
-- YOLO11n weights via Ultralytics. https://github.com/ultralytics/assets
-
-Source for this app: the GitHub repository that published the Release.
+The Windows zip also includes CPython, PyTorch, Ultralytics (AGPL-3.0), OpenCV, FFmpeg (GPL build from Gyan), and YOLO11n weights.

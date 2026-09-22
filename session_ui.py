@@ -40,7 +40,6 @@ from ship import APP_VERSION, GITHUB_REPO, latest_release_api_url, releases_url
 VIDEO_EXTS = {".mp4", ".mov", ".m4v", ".MP4", ".MOV", ".M4V"}
 DEFAULT_LANDING = default_landing_dir()
 PERSON_CLIPPER = ROOT / "person_clipper.py"
-USER_README = ROOT / "USER_README.md"
 ICON_ICO = ROOT / "assets" / "skateboard.ico"
 ICON_PNG = ROOT / "assets" / "skateboard.png"
 
