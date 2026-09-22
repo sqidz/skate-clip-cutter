@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""Skate Clip Cutter - session UI.
-
-Multi-select raw videos -> A.2 YOLO person_clipper -> named session folder
-under a chosen output folder. Stdlib tkinter + subprocess.
-Worker is bundled Python (portable zip) or the project .venv (dev).
-Detect path unchanged.
-"""
+"""Skate Clip Cutter. Pick videos, name the session, write clips."""
 
 from __future__ import annotations
 
@@ -43,36 +37,26 @@ PERSON_CLIPPER = ROOT / "person_clipper.py"
 ICON_ICO = ROOT / "assets" / "skateboard.ico"
 ICON_PNG = ROOT / "assets" / "skateboard.png"
 
-ENGINE_LABEL = "A.2 YOLO person"
 UPDATE_URL = releases_url()
 TIP_URL = "https://buymeacoffee.com/sqidz"
 
 HELP_COPY = (
-    "Skate Clip Cutter turns rolling session footage into usable clips "
-    "by cutting out the stretches you are not in frame.\n\n"
-    "How to run\n"
-    "1. Unzip the download. If Windows blocks it: right-click the zip or "
-    "folder -> Properties -> Unblock -> Apply.\n"
+    "Skate Clip Cutter cuts a long video into smaller clips "
+    "for the parts where a person is in frame.\n\n"
+    "Windows desktop only.\n\n"
+    "1. Unzip the download\n"
     "2. Double-click Skate Clip Cutter.bat\n"
-    "3. Select videos (.mp4 / .mov / .m4v)\n"
-    "4. Enter a Session name (becomes the folder name)\n"
-    "5. Choose an Output folder (parent for that session folder)\n"
-    "6. Click Start. Progress shows file, clips found, and a rough "
-    "total ETA for the whole selection\n"
-    "7. When finished, use Open file location to jump to the session folder\n\n"
-    "Tripod / rock-steady only. Handheld rolling footage is out of claims.\n\n"
-    "Updates: Check for updates opens GitHub Releases. This app does not "
-    "auto-install patches. Download the newer zip and unzip it next to this folder.\n\n"
-    "Tip jar: https://buymeacoffee.com/sqidz"
+    "3. Select videos\n"
+    "4. Enter a session name\n"
+    "5. Click Start\n\n"
+    "The camera needs to be still.\n\n"
+    "https://buymeacoffee.com/sqidz"
 )
 
 
 WORKER_MISSING_TIP = (
-    "The clip engine is missing.\n\n"
-    "If you downloaded a zip: re-download Skate Clip Cutter from GitHub "
-    "Releases and run Skate Clip Cutter.bat from the unzipped folder.\n\n"
-    "If you are running from source: create the project .venv with "
-    "ultralytics, then retry."
+    "Skate Clip Cutter could not start.\n\n"
+    "Download it again, unzip the folder, and run Skate Clip Cutter.bat."
 )
 
 _ETA_RE = re.compile(r"eta~(\d+)s", re.IGNORECASE)
@@ -213,7 +197,7 @@ def run_one_file(
     on_line=None,
     cancel_event: threading.Event | None = None,
 ) -> tuple[int, str]:
-    """Run person_clipper.py (A.2) on one file into out_dir. Returns (exit_code, summary)."""
+    """Run person_clipper.py on one file into out_dir. Returns (exit_code, summary)."""
     if not PERSON_CLIPPER.is_file():
         return 2, f"person_clipper.py not found at {PERSON_CLIPPER}"
     if not worker_python.is_file():
@@ -324,7 +308,7 @@ def probe_duration(path: Path, ffprobe: str | None = None) -> float | None:
         return None
 
 
-# Rough wall-clock seconds per second of video for A.2 YOLO @ ~1.5 fps (CPU-ish).
+# Rough wall-clock seconds per second of video at the default sample rate.
 # Recalibrated from live per-file ETA once the worker reports eta~.
 _ETA_SEC_PER_VIDEO_SEC = 1.25
 
@@ -342,7 +326,7 @@ def run_session(
     on_progress=None,
     cancel_event: threading.Event | None = None,
 ) -> dict:
-    """Process inputs sequentially into one session folder via A.2 person_clipper."""
+    """Process inputs sequentially into one session folder."""
     worker_python = resolve_worker_python()
     if worker_python is None:
         msg = WORKER_MISSING_TIP.replace("\n", " | ")
@@ -373,7 +357,7 @@ def run_session(
     sec_per_video = _ETA_SEC_PER_VIDEO_SEC
 
     if on_line:
-        on_line(f"engine: {ENGINE_LABEL}  worker={worker_python}")
+        on_line(f"worker={worker_python}")
 
     # Invisible pre-pass: probe durations once so we can show a whole-selection ETA.
     if on_status:
@@ -826,7 +810,6 @@ class SessionApp(tk.Tk):
         self.clips_line.set("Clips found: 0")
         self.eta_line.set("Estimating selection ETA...")
         self._append_log(f"Session out: {out}")
-        self._append_log(f"Engine: {ENGINE_LABEL}")
         self._start_spinner()
 
         inputs = list(self.files)
@@ -1034,7 +1017,7 @@ class SessionApp(tk.Tk):
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        description="Session UI for Skate Clip Cutter (multi-file -> YOLO person clips)."
+        description="Skate Clip Cutter"
     )
     p.add_argument(
         "--inputs",
@@ -1083,7 +1066,6 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         out = resolve_out_dir(args)
         print(f"session out: {out}", flush=True)
-        print(f"engine: {ENGINE_LABEL}", flush=True)
 
         def on_status(msg: str) -> None:
             print(f"[status] {msg}", flush=True)

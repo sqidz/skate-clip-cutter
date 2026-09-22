@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
-"""Skate session clip cutter - Week 38 Slice A.2 spike (YOLO person-in-frame).
-
-Subsample frames -> Ultralytics YOLO person (+ skateboard if present) ->
-keep-windows with merge/pad -> ffmpeg stream-copy export via clipper helpers.
-
-A.1 motion detect is a HARD KILL; this path is experimental, not product.
-V1 product lock remains: tripod / rock-steady only.
-"""
+"""Find a person in the video and write the clips."""
 
 from __future__ import annotations
 
@@ -239,7 +232,7 @@ def build_keep_windows(
 def main(argv: list[str] | None = None) -> int:
     refresh_path()
     parser = argparse.ArgumentParser(
-        description="A.2 spike: YOLO person-in-frame skate clip cutter (experimental)."
+        description="Find a person in a video and write clips."
     )
     parser.add_argument("--input", "-i", required=True, help="Path to raw video file")
     parser.add_argument(

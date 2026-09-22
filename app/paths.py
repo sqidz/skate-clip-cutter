@@ -20,8 +20,12 @@ def bundled_python() -> Path | None:
 
 
 def dev_venv_python() -> Path | None:
-    exe = ROOT / ".venv" / "Scripts" / "python.exe"
-    return exe if exe.is_file() else None
+    """Project venv sits next to the scripts, or one folder up when they live in app/."""
+    for base in (ROOT, ROOT.parent):
+        exe = base / ".venv" / "Scripts" / "python.exe"
+        if exe.is_file():
+            return exe
+    return None
 
 
 def bundled_model_path() -> Path | None:

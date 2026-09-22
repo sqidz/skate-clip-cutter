@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
-"""Skate session clip cutter - Week 38 Slice A.1 (merge3 retune).
-
-One raw video in -> coarse local motion detect -> folder of clip files out.
-Stdlib + ffmpeg/ffprobe only. No review UI, no phone app, no DRM, no batch.
-
-V1 product lock: tripod / rock-steady only (handheld continuous roll out of claims).
-Merge3 (2026-09-17): tighten MERGE/PAD; short lead-in absorb; keep blank drop + pre-roll.
-"""
+"""Shared video export helpers."""
 
 from __future__ import annotations
 
