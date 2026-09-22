@@ -1,16 +1,18 @@
-# Skate Clip Cutter
+# skate-clip-cutter
 
-Cuts raw skate footage into separate clips when you're in frame. Leave the camera running, pick the files, name the session.
+A simple tool that processes raw footage into separated clips based on a person being detected. Intended to help clip raw skate footage.
 
-[Download the Windows zip](https://github.com/sqidz/skate-clip-cutter/releases/latest). Unzip it and double-click `Skate Clip Cutter.bat`. Python is already in there. If Windows blocks the folder, right-click it, open Properties, and choose Unblock.
+I leave the phone recording, get the files onto the PC, and pick which ones to run. It writes out smaller clips for the stretches a person is in frame. I take those into DaVinci. Tripod only. Handheld has been messy.
 
-Use a tripod. A moving camera cuts in the wrong places.
+Download: https://github.com/sqidz/skate-clip-cutter/releases/latest
 
-[Buy me a coffee](https://buymeacoffee.com/sqidz) if it saves you time in the editor.
+Unzip it and run Skate Clip Cutter.bat. Python is in the zip. If Windows blocks the folder, right-click it, Properties, Unblock.
 
-Check for updates in the app opens this Releases page. It does not install the update for you.
+Check for updates opens the releases page. You download the new zip yourself.
 
-To run from this repo: Python 3.10+, FFmpeg on PATH, then
+https://buymeacoffee.com/sqidz
+
+From this repo, instead of the zip:
 
 ```powershell
 python -m venv .venv
@@ -18,4 +20,4 @@ python -m venv .venv
 python session_ui.py
 ```
 
-AGPL-3.0. The zip also includes Python, PyTorch, Ultralytics, OpenCV, and FFmpeg. See `NOTICE.txt`.
+FFmpeg needs to be installed too. AGPL-3.0. NOTICE.txt is the other programs that come in the zip.
