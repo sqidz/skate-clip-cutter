@@ -1,0 +1,11 @@
+﻿.venv/
+*.pt
+__pycache__/
+out/
+dist/
+.build-cache/
+vendor/
+python/
+*.zip
+RAW Rathmines session/
+_codec_spike/

@@ -1,0 +1,7 @@
+# Worker + portable zip pins (CPU torch).
+# Install torch first from the CPU wheel index, then this file. See build_portable.ps1.
+
+ultralytics==8.4.154
+opencv-python==5.0.0.93
+numpy==2.5.3
+pillow==12.3.0
